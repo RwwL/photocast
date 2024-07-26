@@ -52,6 +52,11 @@ function readDirectory(dir, callback){
 
 
 http.createServer(function (req, res) {
+    if (path.normalize(unescape(req.url)) !== unescape(req.url)) {
+        res.writeHead(403, {"Content-Type": "text/plain"});
+        res.end();
+        return;
+    }
   console.log('request: '+req.url+'');
   var isIndex = false,
       uri = url.parse(req.url).pathname,
